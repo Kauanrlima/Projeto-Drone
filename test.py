@@ -8,7 +8,7 @@ class keyboard:
         self.pg.init()
         self.pressed_keys = pg.key.get_pressed()
         self.pg.quit()
-        
+
     screen = pg.display.set_mode((400,400))
     
     run = True
