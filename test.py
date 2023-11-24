@@ -28,7 +28,15 @@ class keyboard:
                             fb = speed
                         if keys[pg.K_DOWN]:
                             fb = -speed
-                        return [lr,fb]
+                        if keys[pg.K_w]:
+                            up = speed
+                        if keys[pg.K_s]:
+                            up = -speed
+                        if keys[pg.K_a]:
+                            yv = -speed
+                        if keys[pg.K_d]:
+                            yv = speed
+                        return [lr,fb,up,yv]
                     print(KeyBoardInput())
     
    
