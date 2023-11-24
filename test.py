@@ -1,7 +1,7 @@
 ### Main code of the project
 
 import pygame as pg
-from pygame.locals import (K_UP,K_DOWN,K_LEFT,K_RIGHT)
+
 
 class keyboard:
     def __init__(self):
@@ -18,6 +18,11 @@ class keyboard:
                 run = False
 
             if event.type == pg.KEYDOWN:
-                if event.key == pg.K_a:
+                if event.key == pg.K_UP:
+                    print('w')
+                elif event.key == pg.K_DOWN:
+                    print('s')
+                elif event.key == pg.K_LEFT:
                     print('a')
-    
+                elif event.key == pg.K_RIGHT:
+                    print('d')
