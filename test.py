@@ -7,7 +7,7 @@ importação do djitellopy para a comunicação com o drone
 import pygame as pg
 from djitellopy import tello
 
-## Conexão com o dorne e definição de variável que refere-se ao drone
+## Conexão com o drone e definição de variável que refere-se ao drone
 dr = tello.Tello()
 dr.connect()
 
