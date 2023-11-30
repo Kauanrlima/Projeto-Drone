@@ -1,3 +1,5 @@
+k = "kauan acho que funcionou"
+
 import cv2
 import numpy as np
 from djitellopy import tello
