@@ -9,7 +9,7 @@ from djitellopy import tello
 
 ## Conexão com o drone e definição de variável que refere-se ao drone
 dr = tello.Tello()
-dr.connect()
+#dr.connect()
 
 ##Criação de uma classe para representar o código voltado ao teclado
 class keyboard:
@@ -20,19 +20,7 @@ class keyboard:
     
     #Criação de uma janela para o funcionamento do pygame
     screen = pg.display.set_mode((100,100))
-      
-    #Variável running que permite que o pygame rode, além de servir como um meio de fechar a janela
-    running = True
-    while running:
-        for event in pg.event.get():
-
-            #Evento que ocorre quando é clicado o "x" da janela do pygame 
-            #no caso fechará a janela e encerrará o código
-            
-            if event.type == pg.QUIT:
-             running = False
-            if event.type == pg.KEYDOWN:
-                def KeyBoardInput():
+    def KeyBoardInput():
                     lr, fb, up, yv = 0,0,0,0
                     speed = 20
                     keys = pg.key.get_pressed()
@@ -53,6 +41,14 @@ class keyboard:
                     if keys[pg.K_d]:
                         yv = speed
                     return [lr,fb,up,yv]
+    #Variável running que permite que o pygame rode, além de servir como um meio de fechar a janela
+    running = True
+    while running:
+        for event in pg.event.get():
+            
+            if event.type == pg.QUIT:
+             running = False
+            if event.type == pg.KEYDOWN:
                 vals = KeyBoardInput()
                 dr.send_rc_control(vals[0],vals[1],vals[2],vals[3])
                 
