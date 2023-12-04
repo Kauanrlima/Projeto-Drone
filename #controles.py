@@ -1,15 +1,18 @@
-#controles 
+import cv2
+import time
+import numpy as np
 from djitellopy import tello
-from test import keyboard as kb
-import test as kb
 
-dr = tello.Tello()
-dr.connect()
-print(dr.get_battery())
+class drone:
+     def __init__(self):
+        #self.dr = tello.Tello()
+        #self.conexão = self.dr.connect()
+        time.sleep(2.2)
 
-dr.takeoff()
+     def veloc():
+         lr,fb,ud,yv = 0,0,0,0
+         return[lr,fb,ud,yv]
 
-
-
-vals = kb.KeyBoardInput()
-dr.send_rc_control(vals[0],vals[1],vals[2],vals[3])
+vals = drone.veloc()
+print(vals)
+     
