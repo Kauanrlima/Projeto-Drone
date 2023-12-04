@@ -1,17 +1,18 @@
 k = "kauan acho que funcionou"
 
 import cv2
+import time
 import numpy as np
 from djitellopy import tello
 
-dr = tello.Tello()
-dr.connect()
-print(dr.get_battery())
-
-dr.streamon()
-dr.takeoff() 
-dr.send_rc_control(0,0,0,0)
-time.sleep(2.2)
+def drone(self):
+    dr = tello.Tello()
+    dr.connect()
+    print(dr.get_battery())
+    dr.streamon()
+    dr.takeoff() 
+    dr.send_rc_control(0,0,0,0)
+    time.sleep(2.2)
 
 
 fbRange = [6200,6800]
@@ -63,16 +64,16 @@ def trackFace(me,info,w,pid,pError):
         speed = 0
         error = 0
         
-    dr.send_rc_control(0,fb,0,speed)
+    drone.send_rc_control(0,fb,0,speed)
       
 
 while True:
-    img = dr.get_frame_read().frame
+    img = drone.get_frame_read().frame
     img =cv2.resize(img,(w,h)) 
     img, info = findFace(img)
     pError = trackFace(info,w,pid,pError)
     print("center",info[0], "Area",info[1])
     cv2.imshow("Output", img)
     if cv2.waitKey(1) & 0xFF == ord('q'):
-        dr.land()
+        drone.land()
         break
