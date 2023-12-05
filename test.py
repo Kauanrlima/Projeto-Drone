@@ -6,6 +6,7 @@ importação do djitellopy para a comunicação com o drone
 '''
 import pygame as pg
 from djitellopy import tello
+import time
 
 ## Conexão com o drone e definição de variável que refere-se ao drone
 dr = tello.Tello()
@@ -40,12 +41,12 @@ class keyboard:
                         yv = -speed
                     if keys[pg.K_d]:
                         yv = speed
+                    time.sleep(0.5)
                     return [lr,fb,up,yv]
     #Variável running que permite que o pygame rode, além de servir como um meio de fechar a janela
     running = True
     while running:
         for event in pg.event.get():
-            
             if event.type == pg.QUIT:
              running = False
             if event.type == pg.KEYDOWN:
