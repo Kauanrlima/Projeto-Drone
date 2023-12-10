@@ -21,36 +21,36 @@ class keyboard:
     
     #Criação de uma janela para o funcionamento do pygame
     screen = pg.display.set_mode((100,100))
-    def KeyBoardInput():
-                    lr, fb, up, yv = 0,0,0,0
-                    speed = 20
-                    keys = pg.key.get_pressed()
-                    if keys[pg.K_LEFT]:
-                        lr = -speed
-                    if keys[pg.K_RIGHT]:
-                        lr = speed
-                    if keys[pg.K_UP]:
-                        fb = speed
-                    if keys[pg.K_DOWN]:
-                        fb = -speed
-                    if keys[pg.K_w]:
-                        up = speed
-                    if keys[pg.K_s]:
-                        up = -speed
-                    if keys[pg.K_a]:
-                        yv = -speed
-                    if keys[pg.K_d]:
-                        yv = speed
-                    time.sleep(0.5)
-                    return [lr,fb,up,yv]
-    #Variável running que permite que o pygame rode, além de servir como um meio de fechar a janela
+    def KeyBoardInput(b1):
+        b1 = getattr(pg,'K_{}'.format(b1))
+        lr, fb, up, yv = 0,0,0,0
+        speed = 20
+        keys = pg.key.get_pressed()
+        if keys[b1]:
+            lr = -speed
+        if keys[pg.K_RIGHT]:
+            lr = speed
+        if keys[pg.K_UP]:
+            fb = speed
+        if keys[pg.K_DOWN]:
+            fb = -speed
+        if keys[pg.K_w]:
+            up = speed
+        if keys[pg.K_s]:
+            up = -speed
+        if keys[pg.K_a]:
+            yv = -speed
+        if keys[pg.K_d]:
+            yv = speed
+        time.sleep(0.5)
+        return [lr,fb,up,yv]
     running = True
     while running:
         for event in pg.event.get():
             if event.type == pg.QUIT:
              running = False
             if event.type == pg.KEYDOWN:
-                vals = KeyBoardInput()
+                vals = KeyBoardInput('LEFT')
                 dr.send_rc_control(vals[0],vals[1],vals[2],vals[3])
                 
    
