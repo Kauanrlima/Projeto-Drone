@@ -1,18 +1,17 @@
-import cv2
 import time
-import numpy as np
 from djitellopy import tello
+import pygame as pg
+import test 
 
-class drone:
-     def __init__(self):
-        #self.dr = tello.Tello()
-        #self.conexão = self.dr.connect()
-        time.sleep(2.2)
+dr = tello.Tello()
+#dr.connect()
+running = True
+while running:
+    test.keyboard()
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            running = False
+        if event.type == pg.KEYDOWN:
+            vals = test.keyboard.KeyBoardInput('LEFT','RIGHT','UP','DOWN','w','s','a','d')
+            dr.send_rc_control(vals[0],vals[1],vals[2],vals[3])
 
-     def veloc():
-         lr,fb,ud,yv = 0,0,0,0
-         return[lr,fb,ud,yv]
-
-vals = drone.veloc()
-print(vals)
-     
