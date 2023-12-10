@@ -11,6 +11,7 @@ class keyboard:
 
     def __init__(self):
         self.screen = pg.display.set_mode((100,100))
+        pg.key.set_repeat(500)
 
     
     def KeyBoardInput(b1,b2,b3,b4,b5,b6,b7,b8):
