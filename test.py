@@ -1,21 +1,24 @@
-### Class keyboard
-
 '''
 importação do pygame para criar os controles do drone e 
 importação do djitellopy para a comunicação com o drone
 '''
+
+from djitellopy import tello
 import pygame as pg
 import time
 
-class keyboard:
+class Drone:
 
     def __init__(self):
-        self.screen = pg.display.set_mode((100,100))
+
+        self.tello = tello.Tello()
+
+        self.screen = pg.display.set_mode((100, 100))
         pg.key.set_repeat(300)
     
-    def KeyBoardInput(b1,b2,b3,b4,b5,b6,b7,b8):
-        lr, fb, up, yv = 0,0,0,0
-        speed = 20
+    def KeyBoardInput(self, b1, b2, b3, b4, b5, b6, b7, b8, speed=20):
+        lr, fb, up, yv = 0, 0, 0, 0
+        
         keys = pg.key.get_pressed()
         b1 = getattr(pg,'K_{}'.format(b1))
         b2 = getattr(pg,'K_{}'.format(b2))
@@ -44,7 +47,7 @@ class keyboard:
             yv = speed
 
         time.sleep(0.05)
-        return [lr,fb,up,yv]
+        return [lr, fb, up, yv]
 
                 
    
