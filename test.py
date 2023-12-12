@@ -10,11 +10,13 @@ import time
 class Drone:
 
     def __init__(self):
-
         self.tello = tello.Tello()
-
         self.screen = pg.display.set_mode((100, 100))
         pg.key.set_repeat(300)
+        self.tello.connect()
+        self.tello.streamon()
+        self.tello.takeoff()
+
     
     def KeyBoardInput(self, b1, b2, b3, b4, b5, b6, b7, b8, speed=20):
         lr, fb, up, yv = 0, 0, 0, 0
