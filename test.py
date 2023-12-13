@@ -14,11 +14,10 @@ class Drone:
         self.screen = pg.display.set_mode((100, 100))
         pg.key.set_repeat(300)
         self.tello.connect()
-        self.tello.streamon()
         self.tello.takeoff()
 
     
-    def KeyBoardInput(self, b1, b2, b3, b4, b5, b6, b7, b8, speed=20):
+    def KeyBoardInput(self, b1, b2, b3, b4, b5, b6, b7, b8,b9, b10, speed=30):
         lr, fb, up, yv = 0, 0, 0, 0
         
         keys = pg.key.get_pressed()
@@ -30,6 +29,8 @@ class Drone:
         b6 = getattr(pg,'K_{}'.format(b6))
         b7 = getattr(pg,'K_{}'.format(b7))
         b8 = getattr(pg,'K_{}'.format(b8))
+        b9 = getattr(pg,'K_{}'.format(b9))
+        b10 = getattr(pg,'K_{}'.format(b10))
 
         if keys[b1]:
             lr = -speed
@@ -47,7 +48,11 @@ class Drone:
             yv = -speed
         if keys[b8]:
             yv = speed
-
+        if keys[b9]:
+            self.tello.land()
+        if keys[b10]:
+            self.tello.takeoff()
+        
         time.sleep(0.05)
         return [lr, fb, up, yv]
 
