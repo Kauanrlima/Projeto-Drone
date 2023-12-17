@@ -1,9 +1,11 @@
-
+...
+Foi importado as biblitecas open CV e djitellopy, para, respectivamente
+reconhecer imagens e controlar os comandos do drone pelo computador
+...
 import cv2
 import djitellopy as tello
 
 class Camera:
-
 
     def __init__(self):
         self.capture = tello.Tello.get_frame_read().frame
