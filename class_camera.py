@@ -1,13 +1,13 @@
 
 import cv2
 import numpy as np
-
-
+import test
+dr = test.Drone()
 class Camera:
 
 
     def __init__(self):
-        self.capture = cv2.VideoCapture(0)
+        self.capture = dr.tello.get_frame_read().frame
 
     def cascata(self,img):
         
@@ -17,8 +17,8 @@ class Camera:
         return faces 
     
     def trackFace(self,faces,img):
-        myFaceList = []
-        myFaceArea = []
+        self.myFaceList = []
+        self.myFaceArea = []
 
         for (x,y,w,h) in faces:
             cv2.rectangle(img, (x,y), (x+w,y+h),(0,0,255), 2)
@@ -26,17 +26,17 @@ class Camera:
             cy = y + h //2
             area = w * h
             cv2.circle(img,(cx,cy), 5, (0,255,0), cv2.FILLED)
-            myFaceList.append([cx,cy])
-            myFaceArea.append(area)
-        if len(myFaceArea) != 0:
-            i = myFaceArea.index(max(myFaceArea))
-            return img, [myFaceList[i],myFaceArea[i]]
+            self.myFaceList.append([cx,cy])
+            self.myFaceArea.append(area)
+        if len(self.myFaceArea) != 0:
+            i = self.myFaceArea.index(max(self.myFaceArea))
+            return img, [self.myFaceList[i],self.myFaceArea[i]]
         else :
             return img, [[0,0], 0]
         
 
     def main(self):
-        _, self.cap = self.capture.read()
+        _, self.cap = self.capture
         img = cv2.resize(self.cap, (360,240))
         faces = Camera.cascata(self,img)
         img = Camera.trackFace(self,faces,img)

@@ -6,7 +6,7 @@ import cv2
 import class_camera
 
 dr = test.Drone()
-video =class_camera.Camera()
+video = class_camera.Camera()
 
 running = True
 while running:
