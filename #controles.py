@@ -3,20 +3,17 @@ import time
 import pygame as pg
 import test 
 import cv2
-import class_camera
+import webcam
 
 dr = test.Drone()
-cm = class_camera.camera()
-cam = cm.findFace()
+cap = cv2.VideoCapture(0)
+kauan =Camera(cap)
+kauan.main()
 
 running = True
 while running:
 
-	img, info = cam(img)
-	img = dr.tello.get_frame_read().frame
-	img =cv2.resize(img,(360,240)) 
-	cv2.imshow("Output", img)
-     
+	
 	for event in pg.event.get():
 		
 		if event.type == pg.QUIT:
