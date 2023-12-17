@@ -3,16 +3,14 @@ import time
 import pygame as pg
 import test 
 import cv2
-import webcam
+import class_camera
 
 dr = test.Drone()
-cap = cv2.VideoCapture(0)
-kauan =Camera(cap)
-kauan.main()
+video =class_camera.Camera()
 
 running = True
 while running:
-
+	video.main()
 	
 	for event in pg.event.get():
 		

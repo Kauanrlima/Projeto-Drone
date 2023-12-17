@@ -1,12 +1,14 @@
 
 import cv2
 import numpy as np
+
+
 class Camera:
 
-    
-    def __init__(self,cap):
-        _, self.cap = cap.read()
-   
+
+    def __init__(self):
+        self.capture = cv2.VideoCapture(0)
+
     def cascata(self,img):
         
         faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -34,17 +36,14 @@ class Camera:
         
 
     def main(self):
-        while True:
-            _, self.cap = cap.read()
-            img = cv2.resize(self.cap, (360,240))
-            faces = Camera.cascata(self,img)
-            img = Camera.trackFace(self,faces,img)
-            cv2.imshow("Frame", img[0])
-            cv2.waitKey(1)
+        _, self.cap = self.capture.read()
+        img = cv2.resize(self.cap, (360,240))
+        faces = Camera.cascata(self,img)
+        img = Camera.trackFace(self,faces,img)
+        cv2.imshow("Frame", img[0])
+        cv2.waitKey(1)
 
-cap = cv2.VideoCapture(0)
-kauan =Camera(cap)
-kauan.main()
+
 
 
 
