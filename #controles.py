@@ -21,3 +21,4 @@ while running:
 		if event.type == pg.KEYUP:
 			dr.tello.send_rc_control(0,0,0,0)
 
+    
