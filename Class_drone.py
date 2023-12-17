@@ -1,27 +1,46 @@
 import cv2
-import numpy as np
-from djitellopy import tello
+import djitellopy as tello
 
 dr = tello.Tello()
-img = dr.get_frame_read().frame
 
-class drone:
-    def __init__(self,img,speed):
-        self.speed = speed
-        self.img = img
+class Camera:
+
+
+    def __init__(self):
+        self.capture = dr.get_frame_read().frame
+
         
-    
-    def findFace(self,faces):
+    def cascata(self,img):
+        
         faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-        imgGray = cv2.cvtColor(self.img, cv2.COLOR_BGR2GRAY)
+        imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(imgGray, 1.2, 5)
+        return faces 
+    
+    def trackFace(self,faces,img):
+        self.myFaceList = []
+        self.myFaceArea = []
+
+        for (x,y,w,h) in faces:
+            cv2.rectangle(img, (x,y), (x+w,y+h),(0,0,255), 2)
+            cx = x + w //2
+            cy = y + h //2
+            area = w * h
+            cv2.circle(img,(cx,cy), 5, (0,255,0), cv2.FILLED)
+            self.myFaceList.append([cx,cy])
+            self.myFaceArea.append(area)
+        if len(self.myFaceArea) != 0:
+            i = self.myFaceArea.index(max(self.myFaceArea))
+            return img, [self.myFaceList[i],self.myFaceArea[i]]
+        else :
+            return img, [[0,0], 0]
         
 
-    def trackFace(self,area,x,w,fb):
-        fb = 0
-        pid = [[0.4, 0.4, 0]]
-        error = x - w//2
-        speed = pid[0]* error + pid[1] * (error - pError)
-        speed = int(np.clip(self.speed,-100,100))
-        
-        return dr.send_rc_control(0,fb,0,self.speed)
+    def main(self, window_name="Frame", width=360, height=240, delay=1):
+
+        self.cap = dr.get_frame_read().frame
+        img = cv2.resize(self.cap, (width,height))
+        faces = Camera.cascata(self,img)
+        img = Camera.trackFace(self,faces,img)
+        cv2.imshow(window_name, img[0])
+        cv2.waitKey(delay)
