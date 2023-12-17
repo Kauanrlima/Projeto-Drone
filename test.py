@@ -15,9 +15,8 @@ class Drone:
         self.tello.connect()
         self.tello.streamon()
     
-    def KeyBoardInput(self, b1, b2, b3, b4, b5, b6, b7, b8,b9, b10, b11, b12, speed=50):
+    def KeyBoardInput(self, b1='LEFT', b2='RIGHT', b3='UP', b4='DOWN', b5='w', b6='s', b7='a', b8='d',b9='x', b10='z', b11='c', b12='v', speed=50):
         lr, fb, up, yv = 0, 0, 0, 0
-        
         keys = pg.key.get_pressed()
         b1 = getattr(pg,'K_{}'.format(b1))
         b2 = getattr(pg,'K_{}'.format(b2))
