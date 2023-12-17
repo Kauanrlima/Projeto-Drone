@@ -1,13 +1,13 @@
 
 import cv2
-import test
-
+import djitellopy as tello
 
 class Camera:
 
 
     def __init__(self):
-        self.capture = test.Drone.tello.get_frame_read().frame
+        self.capture = tello.Tello.get_frame_read().frame
+
         
     def cascata(self,img):
         
