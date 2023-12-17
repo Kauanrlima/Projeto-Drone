@@ -1,14 +1,14 @@
 
 import cv2
-import numpy as np
 import test
-dr = test.Drone()
+
+
 class Camera:
 
 
     def __init__(self):
-        self.capture = dr.tello.get_frame_read().frame
-
+        self.capture = test.Drone.tello.get_frame_read().frame
+        
     def cascata(self,img):
         
         faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -16,7 +16,7 @@ class Camera:
         faces = faceCascade.detectMultiScale(imgGray, 1.2, 5)
         return faces 
     
-    def FindFace(self,faces,img):
+    def trackFace(self,faces,img):
         self.myFaceList = []
         self.myFaceArea = []
 
@@ -35,16 +35,17 @@ class Camera:
             return img, [[0,0], 0]
         
 
-    def main(self):
+    def main(self, window_name="Frame", width=360, height=240, delay=1):
+
         _, self.cap = self.capture
-        img = cv2.resize(self.cap, (360,240))
+        img = cv2.resize(self.cap, (width,height))
         faces = Camera.cascata(self,img)
-        img = Camera.FindFace(self,faces,img)
-        cv2.imshow("Frame", img[0])
-        cv2.waitKey(1)
+        img = Camera.trackFace(self,faces,img)
+        cv2.imshow(window_name, img[0])
+        cv2.waitKey(delay)
 
 
-    
+
 
 
 
