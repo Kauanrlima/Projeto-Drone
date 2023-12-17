@@ -1,16 +1,26 @@
-...
+'''
 Foi importado as biblitecas open CV e djitellopy, para, respectivamente
 reconhecer imagens e controlar os comandos do drone pelo computador
-...
+'''
 import cv2
 import djitellopy as tello
 
 class Camera:
 
+    '''
+    Foi criado o objto da classe Camera, tal que o objeto são os frames da 
+    captura já processados "lidos" pela função Tello.get_frame_read().frame
+    '''
+
     def __init__(self):
         self.capture = tello.Tello.get_frame_read().frame
 
-        
+    '''
+    O método cascata é responsável pelo reconhecimento facial, pelo método da Viola Jones. 
+    FaceCascade encontra o caminho do arquivo 'haarcascade_frontalface_default.xml' 
+    
+    '''
+
     def cascata(self,img):
         
         faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
