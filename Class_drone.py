@@ -27,7 +27,11 @@ faces = executa o arquivo 'haarcascade_frontalface_default.xml' para imgGray, as
         imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(imgGray, f, p)
         return faces 
-    
+
+'''
+O método trackFace, ao receber os valores de faces e img, cria um retângulo ao redos da face 
+além de criar uma lista com o cálculo da área do retângulo e das coordenadas de seu centro (cx,cy)
+'''
     def trackFace(self,faces,img):
         myFaceList = []
         myFaceArea = []
@@ -45,8 +49,11 @@ faces = executa o arquivo 'haarcascade_frontalface_default.xml' para imgGray, as
             return img, [myFaceList[i],myFaceArea[i]]
         else :
             return img, [[0,0], 0]
-        
 
+'''
+A função main executa os métodos anteriores de maneira que processa e lê a imagem capturada pelo drone; redimensiona a imagem preocessada; utiliza o 
+método da viola jones para retornar as faces; as faces são contornadas por um retângulo;  por fim, essa imagem é mostrada em uma janela.
+'''
     def main(self, window_name="Frame", width=360, height=240, delay=1, f=1.2, p =5):
 
         self.cap = dr.get_frame_read().frame
