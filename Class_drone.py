@@ -1,6 +1,10 @@
+'''
+Import das biblioteclas de processamento de imagens e de controle do drone Tello
+'''
 import cv2
 import djitellopy as tello
 
+#função para conectar com o drone
 dr = tello.Tello()
 
 class Camera:
