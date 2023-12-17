@@ -16,7 +16,7 @@ class Camera:
         faces = faceCascade.detectMultiScale(imgGray, 1.2, 5)
         return faces 
     
-    def trackFace(self,faces,img):
+    def FindFace(self,faces,img):
         self.myFaceList = []
         self.myFaceArea = []
 
@@ -39,12 +39,12 @@ class Camera:
         _, self.cap = self.capture
         img = cv2.resize(self.cap, (360,240))
         faces = Camera.cascata(self,img)
-        img = Camera.trackFace(self,faces,img)
+        img = Camera.FindFace(self,faces,img)
         cv2.imshow("Frame", img[0])
         cv2.waitKey(1)
 
 
-
+    
 
 
 
