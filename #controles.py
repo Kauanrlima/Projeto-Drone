@@ -11,7 +11,6 @@ import test
 objeto da classe Drone
 '''
 dr = test.Drone()
-
 '''
 Criação de uma variãvel running para dar dar o start no looping do código
 '''
@@ -23,15 +22,15 @@ while running:
 	'''
 	dr.main()
 	'''
-	definição de evento para travar a janela do pygame quando sair
+	definição de evento para travar a janela do pygame quando sair, oq acontece se apertar e soltar um botão
 	'''
 	for event in pg.event.get():
 		
 		if event.type == pg.QUIT:
 			running = False
 			dr.tello.land()
-	'''
-	puxa a função pygame da classe Drone
-	'''
-	dr.pygame()
-    
+		if event.type == pg.KEYDOWN:
+			vals = dr.KeyBoardInput()
+			dr.tello.send_rc_control(vals[0], vals[1], vals[2], vals[3])
+		if event.type == pg.KEYUP:
+			dr.tello.send_rc_control(0,0,0,0)

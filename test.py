@@ -40,7 +40,6 @@ class Drone:
 
     
     def KeyBoardInput(self, b1='LEFT', b2='RIGHT', b3='UP', b4='DOWN', b5='w', b6='s', b7='a', b8='d',b9='x', b10='z', b11='c', b12='v', speed=50):
-        
         '''
         set lr,fb,up,yv variables referring to the drone's velocity values (start with 0 so the buttons can change it)
         assigned a variable to represent the function from pygame "get_pressed" that returns a sequence of boolean values representing the 
@@ -99,6 +98,7 @@ class Drone:
         #returns the values of lr,fb,up,yv
 
         return [lr, fb, up, yv]
+        
     
     '''
     O método cascata utiliza o metoda da viola jones para reconhecimento facial
@@ -141,6 +141,7 @@ class Drone:
     A função main executa os métodos anteriores de maneira que processa e lê a imagem capturada pelo drone; redimensiona a imagem preocessada; utiliza o 
     método da viola jones para retornar as faces; as faces são contornadas por um retângulo;  por fim, essa imagem é mostrada em uma janela.
     '''
+
     def main(self, window_name="Frame", width=360, height=240, delay=1):
 
         self.cap = self.tello.get_frame_read().frame
@@ -150,13 +151,7 @@ class Drone:
         cv2.imshow(window_name, img[0])
         cv2.waitKey(delay)
 
-    def pygame(self):
-        for event in pg.event.get():
-            if event.type == pg.KEYDOWN:
-                vals = self.KeyBoardInput()
-                self.tello.send_rc_control(vals[0], vals[1], vals[2], vals[3])
-            if event.type == pg.KEYUP:
-                self.tello.send_rc_control(0,0,0,0)
+
 
 
                 
