@@ -2,6 +2,7 @@
 importação do pygame para criar os controles do drone e 
 importação do djitellopy para a comunicação com o drone
 importação do time para criar um delay
+importação do cv2 para comunicação com a câmera do drone
 '''
 
 from djitellopy import tello
@@ -98,6 +99,15 @@ class Drone:
         #returns the values of lr,fb,up,yv
 
         return [lr, fb, up, yv]
+    
+    '''
+    O método cascata utiliza o metoda da viola jones para reconhecimento facial
+    faceCascade vai receber o caminho para encontra o arquivo 'haarcascade_frontalface_default.xml', esse arquivo é instalado junto com a biblioteca OpenCV
+    imgGray transforma a imagem já processada pela função get_frame_read().frame de BGR (padrão do OpenCV) para escala cinza (escala que permite o reconhecimento pelo
+    método da Viola Jones)
+    faces = executa o arquivo 'haarcascade_frontalface_default.xml' para imgGray, assim a função retorna as "faces" identificadas, com coordenadas iniciais das faces 
+    (x,y) e finais (x+w,w+h)
+    '''
 
     def cascata(self,img):
         
@@ -105,7 +115,10 @@ class Drone:
         imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(imgGray, 1.2, 5)
         return faces 
-    
+    '''
+    O método trackFace, ao receber os valores de faces e img, cria um retângulo ao redos da face 
+    além de criar uma lista com o cálculo da área do retângulo e das coordenadas de seu centro (cx,cy)
+    '''
     def trackFace(self,faces,img):
         self.myFaceList = []
         self.myFaceArea = []
@@ -124,7 +137,10 @@ class Drone:
         else :
             return img, [[0,0], 0]
         
-
+    '''
+    A função main executa os métodos anteriores de maneira que processa e lê a imagem capturada pelo drone; redimensiona a imagem preocessada; utiliza o 
+    método da viola jones para retornar as faces; as faces são contornadas por um retângulo;  por fim, essa imagem é mostrada em uma janela.
+    '''
     def main(self, window_name="Frame", width=360, height=240, delay=1):
 
         self.cap = self.tello.get_frame_read().frame
@@ -133,6 +149,14 @@ class Drone:
         img = Drone.trackFace(self,faces,img)
         cv2.imshow(window_name, img[0])
         cv2.waitKey(delay)
+
+    def pygame(self):
+        for event in pg.event.get():
+            if event.type == pg.KEYDOWN:
+                vals = self.KeyBoardInput()
+                self.tello.send_rc_control(vals[0], vals[1], vals[2], vals[3])
+            if event.type == pg.KEYUP:
+                self.tello.send_rc_control(0,0,0,0)
 
 
                 
