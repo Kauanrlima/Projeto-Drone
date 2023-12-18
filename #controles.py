@@ -1,14 +1,12 @@
 #Main code 
 import pygame as pg
 import test 
-import class_camera
 
 dr = test.Drone()
-video = class_camera.Camera()
 
 running = True
 while running:
-	video.main()
+	dr.main()
 	
 	for event in pg.event.get():
 		
