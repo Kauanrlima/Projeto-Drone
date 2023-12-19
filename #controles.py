@@ -5,7 +5,8 @@ importa o arquivo test
 '''
 
 import pygame as pg
-import test 
+import test
+import cv2 
 
 '''
 objeto da classe Drone
@@ -28,6 +29,7 @@ while running:
 		
 		if event.type == pg.QUIT:
 			running = False
+			cv2.destroyAllWindows()
 			dr.tello.land()
 		if event.type == pg.KEYDOWN:
 			vals = dr.KeyBoardInput()
