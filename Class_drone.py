@@ -9,29 +9,16 @@ dr = tello.Tello()
 
 class Camera:
 
-#self.capture vai receber os frames processados e lidos das imagens capturadas pela camera do drone 
     def __init__(self):
         self.capture = dr.get_frame_read().frame
 
-'''
-O método cascata utiliza o metoda da viola jones para reconhecimento facial
-faceCascade vai receber o caminho para encontra o arquivo 'haarcascade_frontalface_default.xml', esse arquivo é instalado junto com a biblioteca OpenCV
-imgGray transforma a imagem já processada pela função get_frame_read().frame de BGR (padrão do OpenCV) para escala cinza (escala que permite o reconhecimento pelo
-método da Viola Jones)
-faces = executa o arquivo 'haarcascade_frontalface_default.xml' para imgGray, assim a função retorna as "faces" identificadas, com coordenadas iniciais das faces 
-(x,y) e finais (x+w,w+h)
-'''
-    def cascata(self,img):
+    def cascata(self,img, f, p):
         
         faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
         imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(imgGray, f, p)
         return faces 
 
-'''
-O método trackFace, ao receber os valores de faces e img, cria um retângulo ao redos da face 
-além de criar uma lista com o cálculo da área do retângulo e das coordenadas de seu centro (cx,cy)
-'''
     def trackFace(self,faces,img):
         myFaceList = []
         myFaceArea = []
@@ -50,10 +37,6 @@ além de criar uma lista com o cálculo da área do retângulo e das coordenadas
         else :
             return img, [[0,0], 0]
 
-'''
-A função main executa os métodos anteriores de maneira que processa e lê a imagem capturada pelo drone; redimensiona a imagem preocessada; utiliza o 
-método da viola jones para retornar as faces; as faces são contornadas por um retângulo;  por fim, essa imagem é mostrada em uma janela.
-'''
     def main(self, window_name="Frame", width=360, height=240, delay=1, f=1.2, p =5):
 
         self.cap = dr.get_frame_read().frame
