@@ -25,8 +25,9 @@ class Drone:
     def __init__(self):
         self.tello = tello.Tello()
         self.screen = pg.display.set_mode((100, 100))
-        #self.tello.connect()
-        #self.tello.streamon()
+        self.capture = cv2.VideoCapture(0)
+        # self.tello.connect()
+        # self.tello.streamon()
 
     '''
     The KeyBoardInput function allows the user to choose the buttons for the basic controls and the speed of the drone
@@ -144,21 +145,21 @@ class Drone:
 
     def main(self, window_name="Frame", width=360, height=240, delay=1):
 
-        self.cap = self.tello.get_frame_read().frame
+        # self.cap = self.tello.get_frame_read().frame
+        _, self.cap = self.capture.read()
         img = cv2.resize(self.cap, (width,height))
         faces = Drone.cascata(self,img)
         img = Drone.trackFace(self,faces,img)
         cv2.imshow(window_name, img[0])
         cv2.waitKey(delay)
 
-    def pygame(self,event):
-        if event.type == pg.QUIT:
-            global running 
-            running = False
-            #self.tello.land()
-            cv2.destroyAllWindows()
-
-
+    '''
+    def pygame(self,event,vals):
+        if event.type == pg.KEYDOWN:
+            self.tello.send_rc_control(vals[0], vals[1], vals[2], vals[3])
+        if event.type == pg.KEYUP:
+            self.tello.send_rc_control(0,0,0,0)
+    '''        
                 
    
     
