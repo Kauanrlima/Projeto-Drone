@@ -1,11 +1,14 @@
 
 import cv2
-import numpy as np
+
+cap = cv2.VideoCapture(0)
+
 class Camera():
+
 
     
     def __init__(self,cap):
-        _, self.cap = cap.read()
+        self.capture = cap
    
     def cascata(self,img):
         
@@ -35,14 +38,13 @@ class Camera():
 
     def main(self):
         while True:
-            _, self.cap = cap.read()
+            _, self.cap = self.capture.read()
             img = cv2.resize(self.cap, (360,240))
             faces = Camera.cascata(self,img)
             img = Camera.trackFace(self,faces,img)
             cv2.imshow("Frame", img[0])
             cv2.waitKey(1)
 
-cap = cv2.VideoCapture(0)
 kauan =Camera(cap)
 kauan.main()
 
