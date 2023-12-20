@@ -45,8 +45,8 @@ class Camera():
             cv2.imshow("Frame", img[0])
             cv2.waitKey(1)
 
-kauan =Camera(cap)
-kauan.main()
+webcam =Camera(cap)
+webcam.main()
 
 
 
