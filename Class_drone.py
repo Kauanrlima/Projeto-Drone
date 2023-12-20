@@ -31,7 +31,7 @@ class Camera:
             cv2.circle(img,(cx,cy), 5, (0,255,0), cv2.FILLED)
             myFaceList.append([cx,cy])
             myFaceArea.append(area)
-        if len(self.myFaceArea) != 0:
+        if len(myFaceArea) != 0:
             i = myFaceArea.index(max(myFaceArea))
             return img, [myFaceList[i],myFaceArea[i]]
         else :
