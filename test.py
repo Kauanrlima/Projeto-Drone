@@ -13,7 +13,7 @@ import cv2
 '''
 Class related to the drone, most of the connection and key assignments are done here 
 '''
-class Drone:
+class Drone():
     '''
     The init function sets the first things to be done when calling the Class drone
     The self.tello variable sets the way to refer to the drone's functions such as connect, streamon etc.
@@ -22,9 +22,9 @@ class Drone:
     self.tello.streamon() refers to the function of the tello drone that initializes the streaming mode(in other words it starts the drone camera)
     '''
 
-    def __init__(self):
+    def __init__(self,wth=100,hght=100):
         self.tello = tello.Tello()
-        self.screen = pg.display.set_mode((100, 100))
+        self.screen = pg.display.set_mode((wth, hght))
         self.capture = cv2.VideoCapture(0)
         # print(self.tello.get_battery())
         # self.tello.connect()
