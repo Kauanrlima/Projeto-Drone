@@ -26,6 +26,7 @@ class Drone:
         self.tello = tello.Tello()
         self.screen = pg.display.set_mode((100, 100))
         self.capture = cv2.VideoCapture(0)
+        # print(self.tello.get_battery())
         # self.tello.connect()
         # self.tello.streamon()
 
@@ -110,11 +111,11 @@ class Drone:
     (x,y) e finais (x+w,w+h)
     '''
 
-    def cascata(self,img):
+    def cascata(self,img, f, p):
         
         faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
         imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        faces = faceCascade.detectMultiScale(imgGray, 1.2, 5)
+        faces = faceCascade.detectMultiScale(imgGray, f, p)
         return faces 
     '''
     O método trackFace, ao receber os valores de faces e img, cria um retângulo ao redos da face 
@@ -143,12 +144,12 @@ class Drone:
     método da viola jones para retornar as faces; as faces são contornadas por um retângulo;  por fim, essa imagem é mostrada em uma janela.
     '''
 
-    def main(self, window_name="Frame", width=360, height=240, delay=1):
+    def main(self, window_name="Frame", width=360, height=240, delay=1, f=1.2,p=5):
 
         # self.cap = self.tello.get_frame_read().frame
         _, self.cap = self.capture.read()
         img = cv2.resize(self.cap, (width,height))
-        faces = Drone.cascata(self,img)
+        faces = Drone.cascata(self,img,f,p)
         img = Drone.trackFace(self,faces,img)
         cv2.imshow(window_name, img[0])
         cv2.waitKey(delay)
