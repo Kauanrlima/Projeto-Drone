@@ -25,10 +25,10 @@ class Drone():
     def __init__(self,wth=100,hght=100):
         self.tello = tello.Tello()
         self.screen = pg.display.set_mode((wth, hght))
-        self.capture = cv2.VideoCapture(0)
-        # print(self.tello.get_battery())
-        # self.tello.connect()
-        # self.tello.streamon()
+        # self.capture = cv2.VideoCapture(0)
+        print(self.tello.get_battery())
+        self.tello.connect()
+        self.tello.streamon()
 
     '''
     The KeyBoardInput function allows the user to choose the buttons for the basic controls and the speed of the drone
@@ -52,6 +52,8 @@ class Drone():
         keys = pg.key.get_pressed()
         
         #changed the format of the buttons to match the pg format using the getattr function
+        #TODO dicionario and fstrings
+        
 
         b1 = getattr(pg,'K_{}'.format(b1))
         b2 = getattr(pg,'K_{}'.format(b2))
@@ -144,10 +146,10 @@ class Drone():
     método da viola jones para retornar as faces; as faces são contornadas por um retângulo;  por fim, essa imagem é mostrada em uma janela.
     '''
 
-    def main(self, window_name="Frame", width=360, height=240, delay=1, f=1.2,p=5):
+    def main(self, window_name="Frame", width=360, height=240, delay=1, f=1.2, p=5):
 
-        # self.cap = self.tello.get_frame_read().frame
-        _, self.cap = self.capture.read()
+        self.cap = self.tello.get_frame_read().frame
+        #_, self.cap = self.capture.read()
         img = cv2.resize(self.cap, (width,height))
         faces = Drone.cascata(self,img,f,p)
         img = Drone.trackFace(self,faces,img)

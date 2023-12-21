@@ -8,23 +8,23 @@ import pygame as pg
 import test
 import cv2 
 
-'''
-objeto da classe Drone
-'''
+
+# objeto da classe Drone
+
 dr = test.Drone()
-'''
-Criação de uma variãvel running para dar dar o start no looping do código
-'''
+
+# Criação de uma variével running para dar dar o start no looping do código
+
 
 running = True
 while running:
-	'''
-	puxa a função main da classe Drone
-	'''
-	dr.main()
-	'''
-	definição de evento para travar a janela do pygame quando sair, oq acontece se apertar e soltar um botão
-	'''
+	
+	# puxa a função main da classe Drone
+	
+	#dr.main()
+	
+	# definição de evento para travar o código e o que acontece se apertar e soltar um botão
+	
 	for event in pg.event.get():
 		
 		if event.type == pg.QUIT:
